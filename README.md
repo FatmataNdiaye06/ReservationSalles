@@ -13,3 +13,19 @@ Questions
 4.​ Pourquoi ne versionne-t-on pas vendor/ ?
 
 Ce dossier contient des dependance qu'on peut retelecharger via la commande composer install en ce basant sur les fichiers composer.json et composer.lock.
+
+
+### ETAPES 2
+
+Questions
+1.​ Quel rôle joue Capsule\Manager ?
+    Il nous permet de securiser la connexion a la base de donnée
+
+2.​ Pourquoi Eloquent peut-il fonctionner sans Laravel ?
+
+3.​ Où doit se trouver le démarrage de l’ORM ?
+    Dans config/database.php
+
+4.​ Quelle différence existe entre ORM et SQL écrit à la main ?
+    ORM: Plus evolutive, pas de requette sql
+    SQL: risque d'injection SQL

@@ -29,3 +29,16 @@ Questions
 4.​ Quelle différence existe entre ORM et SQL écrit à la main ?
     ORM: Plus evolutive, pas de requette sql
     SQL: risque d'injection SQL
+
+
+
+### ETAPE 3
+
+1.​ Quel type de relation Eloquent avez-vous utilisé ?
+    hasMany dans salle et BelongsTo dans reservation
+2.​ Pourquoi déclarer $fillable ou $guarded ?
+    Pour controller les attibuts pour voir s'ils peuvent etre remplis par le client
+3.​ Pourquoi convertir active en booléen ?
+    Pour s'assurer que la valeur est un type booleen true ou false car d'habitude il retourne un 0 ou 1
+4.​ Pourquoi convertir les dates en objets ?
+    Pour pouvoir manipuler les champs  sous forme d'instances d'objet

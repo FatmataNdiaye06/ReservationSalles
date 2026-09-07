@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Schema\Blueprint;
 
-Capsule::schema()->create('salles', function ($table) {
+Capsule::schema()->create('salles', function (Blueprint $table) {
     $table->increments('id');
     $table->string('nom');
     $table->string('batiment');

@@ -42,3 +42,27 @@ Questions
     Pour s'assurer que la valeur est un type booleen true ou false car d'habitude il retourne un 0 ou 1
 4.​ Pourquoi convertir les dates en objets ?
     Pour pouvoir manipuler les champs  sous forme d'instances d'objet
+
+
+### ETAPE 4
+
+Questions
+1.​ Quelle différence existe entre migration et seeder ?
+    Les migration nous permet de creer les tables de base de donnee et les seeders de faires des insertions 
+2.​ Pourquoi les données initiales doivent-elles être reproductibles ?
+    Pour garantir que tous les devs ont les memes base de donnee
+3.​ Comment empêcher les doublons ?
+    En utilisant la methodes d'insertion de l'ORM firstOrCreate
+
+### ETAPE 5
+
+Questions
+1.​ Pourquoi séparer la validation syntaxique des règles métier ?
+    La validation syntaxique:Elle gere la validation des donnees.
+    Les règles métier: Elles gerent la logique metier.(interoger BD)
+2.​ Pourquoi créer une interface de validation ?
+    Pour garantir in contrat commun pour tout les validateurs sur la methode vaidate()
+3.​ Pourquoi le validateur ne doit-il pas enregistrer les données ?
+    Pour ne pas violer le principe de responsablité unique
+4.​ Comment retourner plusieurs erreurs en une seule fois ?
+    En collectant les echecs dans un tableau, le NestedValidationException

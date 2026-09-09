@@ -66,3 +66,18 @@ Questions
     Pour ne pas violer le principe de responsablité unique
 4.​ Comment retourner plusieurs erreurs en une seule fois ?
     En collectant les echecs dans un tableau, le NestedValidationException
+
+
+### ETAPES 6
+
+Questions
+1.​ Quelle différence existe entre DTO et modèle Eloquent ?
+    DTO il transporte les donnees valide 
+    modèle Eloquent il est liée avec la base de donnée,les requettes sql.
+
+2.​ Pourquoi le DTO ne doit-il pas appeler save() ?
+    Parce que on respecte le principe de single responsablitie, sont role se limite a transporter les donnees.
+3.​ À quel moment transforme-t-on les chaînes en dates ?
+    au moment de l'instanciation du DTO.
+4.​ Le DTO doit-il contenir la règle de chevauchement ?
+    NON

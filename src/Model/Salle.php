@@ -3,9 +3,10 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Salle extends Model {
+class Salle extends Model 
+{
     protected $table = 'salles';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'nom',
@@ -19,7 +20,8 @@ class Salle extends Model {
         'active' => 'boolean',
     ];
 
-    public function reservations() {
+    public function reservations() 
+    {
         return $this->hasMany(Reservation::class, 'salle_id', 'id');
     }
 }

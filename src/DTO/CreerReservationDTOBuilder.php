@@ -35,6 +35,13 @@ class CreerReservationDTOBuilder {
     }
 
     public function build(): CreerReservationDTO {
+      if (
+        !isset($this->salleId) || !isset($this->responsable) || 
+        !isset($this->email) || !isset($this->motif) || 
+        !isset($this->dateDebut) || !isset($this->dateFin)
+    ) {
+        throw new \InvalidArgumentException("Toutes les informations de la réservation sont obligatoires.");
+    } 
       return new CreerReservationDTO(
         salleId: $this->salleId,
         responsable: $this->responsable,

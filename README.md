@@ -81,3 +81,16 @@ Questions
     au moment de l'instanciation du DTO.
 4.​ Le DTO doit-il contenir la règle de chevauchement ?
     NON
+
+
+### ETAPE 7
+
+Questions
+1.​ Eloquent constitue-t-il déjà un accès aux données ?
+    Oui car il fait le lien entre nos table de base de donnee et nos objet php
+2.​ Pourquoi ajouter un Repository au-dessus d’Eloquent ?
+    Pour ne pas exposer le technologie utuliser au cas ou on nous demande de basculer sur un autre
+3.​ Cette abstraction est-elle toujours nécessaire ?
+    Pour des petites application non
+4.​ Quel avantage apporte-t-elle ?
+    Maintenable, possiblité de changer d'ORM sans modifier les servcices

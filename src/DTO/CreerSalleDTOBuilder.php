@@ -30,6 +30,14 @@ class CreerSalleDTOBuilder {
     }
 
     public function build(): CreerSalleDTO {
+
+        if (
+        !isset($this->nom) || !isset($this->batiment) || 
+        !isset($this->capacite) || !isset($this->type) || 
+        !isset($this->active)
+    ) {
+        throw new \InvalidArgumentException("Toutes les informations de la salle sont obligatoires.");
+    }
         return new CreerSalleDTO(
             nom:$this->nom,
             batiment:$this->batiment,

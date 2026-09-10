@@ -94,3 +94,20 @@ Questions
     Pour des petites application non
 4.​ Quel avantage apporte-t-elle ?
     Maintenable, possiblité de changer d'ORM sans modifier les servcices
+
+
+### ETAPE 8
+
+Questions
+1.​ Pourquoi ces règles ne sont-elles pas dans le contrôleur ?
+    Pour respecter le principe de Single Responsablité, le controleur a comme but de recevoir des requettes et retourner des reponses.
+
+2.​ Pourquoi le service dépend-il d’une interface de Repository ?
+    En dependant d'une interface et non d'une class. En respectant le principe de l'inversion de dépendances
+    
+
+3.​ Quelle exception doit être levée en cas de conflit?
+    SalleIndisponibleException
+
+4.​ Comment tester le service sans MySQL ?
+    En utilisant les interfaces.

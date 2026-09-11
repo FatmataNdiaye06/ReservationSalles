@@ -8,6 +8,14 @@ class CreerSalleDTOBuilder {
     private string $type;
     private bool $active = true;
 
+    public static function fromArray(array $data): self {
+        return (new self())
+            ->nom($data['nom'])
+            ->batiment($data['batiment'])
+            ->capacite((int)$data['capacite'])
+            ->type($data['type'])
+            ->active((bool)$data['active']);
+    }
     public function nom(string $nom): self { 
         $this->nom = $nom; 
         return $this; 
@@ -30,7 +38,6 @@ class CreerSalleDTOBuilder {
     }
 
     public function build(): CreerSalleDTO {
-
         if (
         !isset($this->nom) || !isset($this->batiment) || 
         !isset($this->capacite) || !isset($this->type) || 

@@ -10,14 +10,11 @@ use App\Repository\ReservationRepositoryInterface;
 class CreerReservationService
 {
     public function __construct(
-       private  SalleRepositoryInterface $salleRepository,
+       private SalleRepositoryInterface $salleRepository,
        private ReservationRepositoryInterface $reservationRepository
-    ) {
-        $this->salleRepository = $salleRepository;
-        $this->reservationRepository = $reservationRepository;
-    }
+    ) {}
 
-    public function creer(CreerReservationDTO $dto): Reservation
+    public function execute(CreerReservationDTO $dto): Reservation
     {
         $this->verifierSalleActive($dto->salleId);
         $this->verifierPeriodeValide($dto->dateDebut, $dto->dateFin);
@@ -31,7 +28,6 @@ class CreerReservationService
         return $reservation;
     }
 
-   
     private function verifierSalleActive(int $salleId): void
     {
         $salle = $this->salleRepository->find($salleId);

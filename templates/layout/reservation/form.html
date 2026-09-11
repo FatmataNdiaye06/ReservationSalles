@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle réservation - DalalSpace</title>
+    <link rel="stylesheet" href="/public/assets/style.css">
+</head>
+<body>
+
+<div class="page">
+
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            <span class="logo-icon">D</span>
+            <span>Dalal<span>Space</span></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="../index.html">Accueil</a>
+            <a href="../salle/index.html">Salles</a>
+            <a href="index.html" class="active">Réservations</a>
+            <a href="form.html" class="nav-button">
+                + Nouvelle réservation
+            </a>
+        </nav>
+
+    </header>
+
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <div>
+                <span class="page-label">
+                    RÉSERVATION
+                </span>
+
+                <h1>Nouvelle réservation</h1>
+
+                <p>
+                    Remplissez les informations pour réserver une salle.
+                </p>
+            </div>
+
+        </div>
+
+
+        <section class="form-card">
+
+            <form>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="salle">
+                            Salle
+                        </label>
+
+                        <select id="salle">
+
+                            <option value="">
+                                Sélectionner une salle
+                            </option>
+
+                            <option>
+                                Amphithéâtre A
+                            </option>
+
+                            <option selected>
+                                Salle B12
+                            </option>
+
+                            <option>
+                                Laboratoire Chimie
+                            </option>
+
+                            <option>
+                                Salle Informatique 1
+                            </option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="responsable">
+                            Responsable
+                        </label>
+
+                        <input
+                            type="text"
+                            id="responsable"
+                            placeholder="Nom et prénom"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">
+                            Adresse électronique
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="exemple@universite.sn"
+                        >
+                    </div>
+
+
+                    <div class="form-group form-full">
+                        <label for="motif">
+                            Motif
+                        </label>
+
+                        <input
+                            type="text"
+                            id="motif"
+                            placeholder="Ex : Cours d'architecture logicielle"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="date-debut">
+                            Date et heure de début
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="date-debut"
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="date-fin">
+                            Date et heure de fin
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="date-fin"
+                        >
+                    </div>
+
+                </div>
+
+
+                <div class="info-message">
+                    <strong>Information :</strong>
+                    une réservation ne peut pas dépasser 4 heures
+                    et la salle doit être disponible.
+                </div>
+
+
+                <div class="form-actions">
+
+                    <a href="index.html" class="secondary-button">
+                        Annuler
+                    </a>
+
+                    <button type="submit" class="primary-button">
+                        Confirmer la réservation
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        <p>
+            © 2026 <strong>DalalSpace</strong> — Gestion des réservations
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>

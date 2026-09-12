@@ -5,8 +5,10 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 function initDatabase() {
     try {
         $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-        $dotenv->load();
-
+        try {
+            $dotenv->safeLoad();
+        } catch (\Throwable $e) {
+        }
         $capsule = new Capsule;
 
         $capsule->addConnection([

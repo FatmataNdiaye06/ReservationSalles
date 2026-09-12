@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Supprimer la configuration par défaut d'Nginx pour éviter les conflits
+RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/conf.d/default.conf
+
 # Copier la configuration Nginx personnalisée
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 

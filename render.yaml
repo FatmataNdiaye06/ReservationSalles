@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: reservationsalles
+    env: php
+    plan: free
+    buildCommand: "composer install --no-dev --optimize-autoloader"
+    startCommand: "php -S 0.0.0.0:$PORT -t public" # Adaptez "-t public" selon le dossier racine de votre site web (ex: src/View ou public)
+    envVars:
+      - key: PHP_VERSION
+        value: 8.2 # Ajustez selon la version requise dans votre composer.json

@@ -1,26 +1,23 @@
 <?php
-namespace App\Service;
+namespace App\Service\Reservation;
 
 use App\Exception\ReservationIntrouvableException;
 use App\Repository\ReservationRepositoryInterface;
 
 class AnnulerReservationService
 {
-    private ReservationRepositoryInterface $reservationRepository;
+    public function __construct(
+        private ReservationRepositoryInterface $reservationRepository
+    ) {}
 
-    public function __construct(ReservationRepositoryInterface $reservationRepository)
+    public function execute(int $reservationId): void
     {
-        $this->reservationRepository = $reservationRepository;
-    }
-
-    public function annuler(int $reservationId): void
-    {
-        $reservation = $this->reservationRepository->find($reservationId);
+        $reservation = $this->reservationRepository->retrouverReservation($reservationId);
 
         if (!$reservation) {
             throw new ReservationIntrouvableException("La réservation demandée est introuvable.");
         }
 
-        $this->reservationRepository->annulerReservation($reservation);
+        $this->reservationRepository->annulerReservation($reservationId);
     }
 }

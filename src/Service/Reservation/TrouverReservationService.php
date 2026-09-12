@@ -12,7 +12,7 @@ class TrouverReservationService
 
     public function execute(int $id)
     {
-        $reservation = $this->reservationRepository->retrouverParId($id);
+        $reservation = $this->reservationRepository->retrouverReservation($id);
 
         if (!$reservation) {
             throw new ReservationIntrouvableException("La réservation demandée est introuvable.");

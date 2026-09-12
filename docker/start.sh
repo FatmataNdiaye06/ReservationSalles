@@ -1,7 +1,13 @@
 #!/bin/sh
 set -e
 
-echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/zz-docker.conf
+cat > /usr/local/etc/php-fpm.d/zz-docker.conf <<'EOF'
+[global]
+daemonize = no
+
+[www]
+listen = 0.0.0.0:9000
+EOF
 
 PORT="${PORT:-10000}"
 

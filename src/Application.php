@@ -1,7 +1,6 @@
 <?php
 namespace App;
 
-// Inclusion manuelle des classes si l'autoloader ne les trouve pas
 require_once __DIR__ . '/Validation/SalleValidator.php';
 require_once __DIR__ . '/Repository/EloquentSalleRepository.php';
 require_once __DIR__ . '/Service/Salle/ListerSalleService.php';
@@ -14,11 +13,9 @@ use FastRoute\Dispatcher;
 class Application {
 
     public function runApp() {
-        // 1. Charger les routes
         $routeDefinitionCallback = require dirname(__DIR__) . '/routes/web.php';
         $dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
 
-        // 2. Récupérer la méthode HTTP et l'URI courante
         $httpMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $uri = $_SERVER['REQUEST_URI'] ?? '/';
 
@@ -27,7 +24,6 @@ class Application {
         }
         $uri = rawurldecode($uri);
 
-        // 3. Dispatcher la requête
         $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
         switch ($routeInfo[0]) {
@@ -38,7 +34,7 @@ class Application {
 
             case Dispatcher::METHOD_NOT_ALLOWED:
                 http_response_code(405);
-                echo "405 Method Not Allowed";
+                require_once dirname(__DIR__) . '/templates/error/405.php';
                 break;
 
             case Dispatcher::FOUND:
@@ -47,7 +43,6 @@ class Application {
 
                 [$controllerClass, $method] = $handler;
 
-                // Instanciation manuelle des dépendances pour le contrôleur
                 if ($controllerClass === \App\Controller\SalleController::class) {
                     $repository = new \App\Repository\EloquentSalleRepository();
                     $controller = new \App\Controller\SalleController(
@@ -56,6 +51,16 @@ class Application {
                         new \App\Service\Salle\ModifierSalleService($repository),
                         new \App\Service\Salle\TrouverSalleService($repository),
                         new \App\Validation\SalleValidator()
+                    );
+                } elseif ($controllerClass === \App\Controller\ReservationController::class) {
+                    $salleRepository = new \App\Repository\EloquentSalleRepository();
+                    $reservationRepository = new \App\Repository\EloquentReservationRepository();
+                    $controller = new \App\Controller\ReservationController(
+                        new \App\Service\Reservation\ListerReservationsService($reservationRepository),
+                        new \App\Service\Reservation\TrouverReservationService($reservationRepository),
+                        new \App\Service\Reservation\CreerReservationService($salleRepository, $reservationRepository),
+                        new \App\Service\Reservation\AnnulerReservationService($reservationRepository),
+                        new \App\Validation\ReservationValidator()
                     );
                 } else {
                     $controller = new $controllerClass();

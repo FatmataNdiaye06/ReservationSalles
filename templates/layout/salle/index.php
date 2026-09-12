@@ -1,184 +1,60 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salles - DalalSpace</title>
-    <link rel="stylesheet" href="/assets/style.css">
-</head>
+<div class="page-header">
+    <div>
+        <span class="page-label">GESTION</span>
+        <h1>Les salles</h1>
+        <p>Consultez les salles de l'université.</p>
+    </div>
 
-<body>
-
-<div class="page">
-
-    <header class="navbar">
-
-        <a href="../index.html" class="logo">
-            <span class="logo-icon">D</span>
-            <span>Dalal<span>Space</span></span>
-        </a>
-
-        <nav class="nav-links">
-            <a href="../index.html">Accueil</a>
-            <a href="index.html" class="active">Salles</a>
-            <a href="../reservation/index.html">Réservations</a>
-            <a href="../reservation/form.html" class="nav-button">
-                + Nouvelle réservation
-            </a>
-        </nav>
-
-    </header>
-
-
-    <main class="main-content">
-
-        <div class="page-header">
-
-            <div>
-                <span class="page-label">GESTION</span>
-                <h1>Les salles</h1>
-                <p>Consultez les salles de l'université.</p>
-            </div>
-
-            <a href="form.html" class="primary-button">
-                + Ajouter une salle
-            </a>
-
-        </div>
-
-
-        <section class="table-card">
-
-            <div class="table-top">
-                <div>
-                    <h2>Liste des salles</h2>
-                    <span>05 salles enregistrées</span>
-                </div>
-
-                <div class="search-box">
-                    🔍
-                    <input type="text" placeholder="Rechercher une salle...">
-                </div>
-            </div>
-
-
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-                        <tr>
-                            <th>Salle</th>
-                            <th>Bâtiment</th>
-                            <th>Capacité</th>
-                            <th>Type</th>
-                            <th>Statut</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>
-                                <strong>Amphithéâtre A</strong>
-                                <small>#001</small>
-                            </td>
-                            <td>Bâtiment A</td>
-                            <td>250 places</td>
-                            <td>Amphithéâtre</td>
-                            <td><span class="badge success">Active</span></td>
-                            <td>
-                                <a href="show.html" class="table-link">
-                                    Voir
-                                </a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <strong>Salle B12</strong>
-                                <small>#002</small>
-                            </td>
-                            <td>Bâtiment B</td>
-                            <td>40 places</td>
-                            <td>Cours</td>
-                            <td><span class="badge success">Active</span></td>
-                            <td>
-                                <a href="show.html" class="table-link">
-                                    Voir
-                                </a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <strong>Laboratoire Chimie</strong>
-                                <small>#003</small>
-                            </td>
-                            <td>Bâtiment C</td>
-                            <td>24 places</td>
-                            <td>Laboratoire</td>
-                            <td><span class="badge success">Active</span></td>
-                            <td>
-                                <a href="show.html" class="table-link">
-                                    Voir
-                                </a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <strong>Salle Informatique 1</strong>
-                                <small>#004</small>
-                            </td>
-                            <td>Bâtiment D</td>
-                            <td>30 places</td>
-                            <td>Informatique</td>
-                            <td><span class="badge success">Active</span></td>
-                            <td>
-                                <a href="show.html" class="table-link">
-                                    Voir
-                                </a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <strong>Salle de réunion</strong>
-                                <small>#005</small>
-                            </td>
-                            <td>Bâtiment A</td>
-                            <td>12 places</td>
-                            <td>Réunion</td>
-                            <td><span class="badge danger">Inactive</span></td>
-                            <td>
-                                <a href="show.html" class="table-link">
-                                    Voir
-                                </a>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer class="footer">
-        <p>© 2026 <strong>DalalSpace</strong> — Gestion des salles</p>
-    </footer>
-
+    <a href="/salles/create" class="primary-button">
+        + Ajouter une salle
+    </a>
 </div>
 
-</body>
-</html>
+<section class="table-card">
+    <div class="table-top">
+        <div>
+            <h2>Liste des salles</h2>
+            <span><?= count($salles ?? []) ?> salle(s) enregistrée(s)</span>
+        </div>
+
+        <div class="search-box">
+            🔍
+            <input type="text" placeholder="Rechercher une salle...">
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Salle</th>
+                    <th>Bâtiment</th>
+                    <th>Capacité</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($salles ?? [] as $salle): ?>
+                    <tr>
+                        <td>
+                            <strong><?= $salle->nom ?></strong>
+                            <small>#<?= (string) $salle->id ?></small>
+                        </td>
+                        <td><?= $salle->batiment ?></td>
+                        <td><?= (int) $salle->capacite ?> places</td>
+                        <td><?= ucfirst($salle->type) ?></td>
+                        <td>
+                            <span class="badge <?= $salle->active ? 'success' : 'danger' ?>">
+                                <?= $salle->active ? 'Active' : 'Inactive' ?>
+                            </span>
+                        </td>
+                        <td><a href="/salles/<?= (int) $salle->id ?>" class="table-link">Voir</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -1,69 +1,23 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>405 - DalalSpace</title>
-    <link rel="stylesheet" href="../../public/assets/style.css">
-</head>
+<?php
+$title = 'Méthode non autorisée';
+$currentPage = 'home';
+$pageContent = <<<'HTML'
+<div class="error-page">
+    <div class="error-card">
+        <span class="error-number">405</span>
+        <h1>Méthode non autorisée</h1>
+        <p>
+            La méthode HTTP utilisée n'est pas autorisée
+            pour cette adresse.
+        </p>
 
-<body>
-
-<div class="page">
-
-    <header class="navbar">
-
-        <a href="../index.html" class="logo">
-            <span class="logo-icon">D</span>
-            <span>Dalal<span>Space</span></span>
-        </a>
-
-        <nav class="nav-links">
-            <a href="../index.html">Accueil</a>
-            <a href="../salle/index.html">Salles</a>
-            <a href="../reservation/index.html">
-                Réservations
-            </a>
-        </nav>
-
-    </header>
-
-
-    <main class="main-content error-page">
-
-        <div class="error-card">
-
-            <span class="error-number">405</span>
-
-            <h1>Méthode non autorisée</h1>
-
-            <p>
-                La méthode HTTP utilisée n'est pas autorisée
-                pour cette adresse.
-            </p>
-
-            <div class="allowed-methods">
-                <span>Méthodes autorisées</span>
-                <strong>GET · POST</strong>
-            </div>
-
-            <a href="../index.html" class="primary-button">
-                ← Retour à l'accueil
-            </a>
-
+        <div class="allowed-methods">
+            <span>Méthodes autorisées</span>
+            <strong>GET · POST</strong>
         </div>
 
-    </main>
-
-
-    <footer class="footer">
-        <p>
-            © 2026 <strong>DalalSpace</strong> —
-            Gestion des réservations
-        </p>
-    </footer>
-
+        <a href="/" class="primary-button">← Retour à l'accueil</a>
+    </div>
 </div>
-
-</body>
-</html>
+HTML;
+require dirname(__DIR__) . '/layout/base.php';

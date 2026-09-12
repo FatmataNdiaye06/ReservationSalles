@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Service\Reservation;
 
 use App\DTO\CreerReservationDTO;
 use App\Exception\SalleIndisponibleException;
@@ -30,12 +30,12 @@ class CreerReservationService
 
     private function verifierSalleActive(int $salleId): void
     {
-        $salle = $this->salleRepository->find($salleId);
-        
+        $salle = $this->salleRepository->retrouverSalle($salleId);
+
         if (!$salle) {
             throw new SalleIndisponibleException("La salle est introuvable.");
         }
-        
+
         if (!$salle->active) {
             throw new SalleIndisponibleException("La salle demandée n'est pas active.");
         }
@@ -68,7 +68,7 @@ class CreerReservationService
     private function verifierDisponibilite(int $salleId, \DateTimeImmutable $debut, \DateTimeImmutable $fin): void
     {
         $conflit = $this->reservationRepository->hasOverlap($salleId, $debut, $fin);
-        
+
         if ($conflit) {
             throw new SalleIndisponibleException("La salle est déjà réservée sur ce créneau.");
         }

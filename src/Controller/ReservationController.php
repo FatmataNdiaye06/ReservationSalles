@@ -7,7 +7,7 @@ use App\Service\Reservation\CreerReservationService;
 use App\Service\Reservation\AnnulerReservationService;
 use App\DTO\CreerReservationDTOBuilder;
 use App\Validation\ReservationValidator;
-use App\Validator\ValidationResult;
+use App\Validation\ValidationResult;
 
 class ReservationController extends AbstractController
 {
@@ -22,7 +22,11 @@ class ReservationController extends AbstractController
     public function index()
     {
         $reservations = $this->listerReservationsService->execute();
-        return $this->renderView('reservation/index.php', ['reservations' => $reservations]);
+        return $this->renderView('reservation/index.php', [
+            'reservations' => $reservations,
+            'title' => 'Réservations',
+            'currentPage' => 'reservations'
+        ]);
     }
 
     public function show(array $args)
@@ -37,7 +41,9 @@ class ReservationController extends AbstractController
         }
 
         $this->renderView('reservation/show.php', [
-            'reservation' => $reservation
+            'reservation' => $reservation,
+            'title' => 'Réservation - ' . ($reservation->id ?? '#'),
+            'currentPage' => 'reservations'
         ]);
     }
 
@@ -45,7 +51,9 @@ class ReservationController extends AbstractController
     {
         $this->renderView('reservation/form.php', [
             'errors' => [],
-            'old' => []
+            'old' => [],
+            'title' => 'Nouvelle réservation',
+            'currentPage' => 'reservations'
         ]);
     }
 

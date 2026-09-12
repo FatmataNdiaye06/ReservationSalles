@@ -19,10 +19,22 @@ class SalleController extends AbstractController
         private SalleValidator $salleValidator
     ){}
     
+    public function home()
+    {
+        return $this->renderView('index.php', [
+            'title' => 'Accueil',
+            'currentPage' => 'home'
+        ]);
+    }
+
     public function index()
     {
         $salles = $this->listerSalleService->execute();
-        return $this->renderView('salle/index.php', ['salles' => $salles]);
+        return $this->renderView('salle/index.php', [
+            'salles' => $salles,
+            'title' => 'Les salles',
+            'currentPage' => 'salles'
+        ]);
     }
 
     public function show(array $args)
@@ -30,14 +42,16 @@ class SalleController extends AbstractController
         $id = (int) ($args['id'] ?? 0);
 
         try {
-            $salle = $this->trouverSalleService->executer($id);
+            $salle = $this->trouverSalleService->execute($id);
         } catch (\Exception $e) {
             $this->renderView('error/404.php', ['message' => $e->getMessage()]);
             return;
         }
 
         $this->renderView('salle/show.php', [
-            'salle' => $salle
+            'salle' => $salle,
+            'title' => 'Salle - ' . ($salle->nom ?? 'Détail'),
+            'currentPage' => 'salles'
         ]);
     }
     
@@ -45,7 +59,9 @@ class SalleController extends AbstractController
     {
         $this->renderView('salle/form.php', [
             'errors' => [],
-            'old' => []
+            'old' => [],
+            'title' => 'Ajouter une salle',
+            'currentPage' => 'salles'
         ]);
     }
 

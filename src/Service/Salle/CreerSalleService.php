@@ -10,7 +10,7 @@ class CreerSalleService
         private SalleRepositoryInterface $salleRepository
     ) {}
 
-    public function executer(CreerSalleDTO $dto): void
+    public function execute(CreerSalleDTO $dto): void
     {
         $this->salleRepository->enregistrerSalle($dto);
     }

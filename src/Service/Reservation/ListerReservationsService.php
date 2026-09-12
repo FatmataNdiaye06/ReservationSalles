@@ -2,6 +2,7 @@
 namespace App\Service\Reservation;
 
 use App\Repository\ReservationRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ListerReservationsService
 {
@@ -9,7 +10,7 @@ class ListerReservationsService
         private ReservationRepositoryInterface $reservationRepository
     ) {}
 
-    public function execute(): array
+    public function execute(): Collection
     {
         return $this->reservationRepository->listerReservations();
     }

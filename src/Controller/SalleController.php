@@ -1,13 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Service\CreerSalleService;
-use App\Service\ModifierSalleService;
+use App\Service\Salle\CreerSalleService;
+use App\Service\Salle\ModifierSalleService;
 use App\Service\Salle\ListerSalleService;
 use App\Service\Salle\TrouverSalleService; 
 use App\DTO\CreerSalleDTOBuilder;
 use App\Validation\SalleValidator;
-use App\Validator\ValidationResult;
+use App\Validation\ValidationResult;
 
 class SalleController extends AbstractController
 {

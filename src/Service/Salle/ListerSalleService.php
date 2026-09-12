@@ -3,7 +3,7 @@ namespace App\Service\Salle;
 
 Use App\Repository\SalleRepositoryInterface;
 
-class SalleService{
+class ListerSalleService{
     public function __construct(
         public SalleRepositoryInterface $salleRepository
     ){} 

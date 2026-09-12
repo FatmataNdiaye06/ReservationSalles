@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Service\Salle;
 
 use App\DTO\CreerSalleDTO;
 use App\Repository\SalleRepositoryInterface;

@@ -1,5 +1,5 @@
 <?php
-namespace App\Service;
+namespace App\Service\Salle;
 
 use App\Repository\SalleRepositoryInterface;
 use App\Exception\SalleIndisponibleException;

@@ -27,8 +27,8 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Script de démarrage pour lancer Nginx et PHP-FPM en même temps sur le port de Render
 RUN echo '#!/bin/sh\n\
-sed -i "s/listen = 9000/listen = 127.0.0.1:9000/" /usr/local/etc/php-fpm.d/www.conf\n\
-sed -i "s/listen 80;/listen ${PORT:-10000};/" /etc/nginx/conf.d/default.conf\n\
+echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/zz-docker.conf\n\
+sed -i "s/listen 80;/listen 0.0.0.0:\${PORT:-10000};/" /etc/nginx/conf.d/default.conf\n\
 php-fpm -D\n\
 nginx -g "daemon off;"' > /start.sh && chmod +x /start.sh
 

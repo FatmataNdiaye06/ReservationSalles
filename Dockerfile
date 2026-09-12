@@ -1,7 +1,24 @@
-
 FROM php:8.3-fpm
 
-RUN docker-php-ext-install pdo pdo_mysql
+# Installer les extensions nécessaires et Nginx
+RUN apt-get update && apt-get install -y \
+    nginx \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-install pdo pdo_mysql
+
+# Copier la configuration Nginx personnalisée
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www/html
- 
+COPY . /var/www/html
+
+# Script de démarrage pour lancer Nginx et PHP-FPM en même temps sur le port de Render
+RUN echo '#!/bin/sh\n\
+sed -i "s/listen = 9000/listen = 127.0.0.1:9000/" /usr/local/etc/php-fpm.d/www.conf\n\
+sed -i "s/listen 80;/listen ${PORT:-10000};/" /etc/nginx/conf.d/default.conf\n\
+php-fpm -D\n\
+nginx -g "daemon off;"' > /start.sh && chmod +x /start.sh
+
+CMD ["/start.sh"]

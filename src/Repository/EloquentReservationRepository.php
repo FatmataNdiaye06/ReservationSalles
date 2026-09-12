@@ -17,17 +17,22 @@ class EloquentReservationRepository implements ReservationRepositoryInterface
         return Reservation::find($id);
     }
 
-    public function rechercherConflit(int $salleId, DateTimeInterface $debut, DateTimeInterface $fin): ?Reservation
+    public function hasOverlap(int $salleId, DateTimeInterface $debut, DateTimeInterface $fin): bool
     {
         return Reservation::where('salle_id', $salleId)
             ->where('statut', 'confirmée')
             ->where('date_debut', '<', $fin)
             ->where('date_fin', '>', $debut)
-            ->first();
+            ->exists();
     }
 
-    public function enregistrerReservation(array $data): Reservation
+    public function enregistrerReservation($data): Reservation
     {
+        if ($data instanceof Reservation) {
+            $data->save();
+            return $data;
+        }
+
         return Reservation::create($data);
     }
 

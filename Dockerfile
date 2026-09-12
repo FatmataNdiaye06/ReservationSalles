@@ -29,8 +29,7 @@ RUN composer install --no-dev --optimize-autoloader
 RUN echo '#!/bin/sh\n\
 echo "listen = 127.0.0.1:9000" >> /usr/local/etc/php-fpm.d/zz-docker.conf\n\
 PORT=\${PORT:-10000}\n\
-sed -i "s/listen 10000;/listen 0.0.0.0:\$PORT;/" /etc/nginx/conf.d/default.conf\n\
-sed -i "s/listen 80;/listen 0.0.0.0:\$PORT;/" /etc/nginx/conf.d/default.conf\n\
+sed -i "s/listen [0-9]\+;/listen 0.0.0.0:\$PORT;/" /etc/nginx/conf.d/default.conf\n\
 php-fpm -D\n\
 sleep 1\n\
 nginx -g "daemon off;"' > /start.sh && chmod +x /start.sh

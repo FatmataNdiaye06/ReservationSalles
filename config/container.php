@@ -2,6 +2,6 @@
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 try {
-    $dotenv->load();
+    $dotenv->safeLoad();
 } catch (\Throwable $e) {
 }

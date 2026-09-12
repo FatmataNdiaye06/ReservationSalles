@@ -5,4 +5,3 @@ try {
     $dotenv->safeLoad();
 } catch (\Throwable $e) {
 }
-//Safeload

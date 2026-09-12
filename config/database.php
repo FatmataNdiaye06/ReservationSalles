@@ -11,7 +11,7 @@ function initDatabase() {
 
         $capsule->addConnection([
             'driver'    => $_ENV['DB_DRIVER'] ?? 'mysql',
-            'host'      => 'db',
+            'host' => $_ENV['DB_HOST'] ?? getenv('DB_HOST') ?: 'db',
             'database'  => $_ENV['DB_DATABASE'] ?? '',
             'username'  => $_ENV['DB_USERNAME'] ?? 'root',
             'password'  => $_ENV['DB_PASSWORD'] ?? '',

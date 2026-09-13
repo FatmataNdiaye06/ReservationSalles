@@ -22,10 +22,15 @@ class CreerReservationService
         $this->verifierDateFuture($dto->dateDebut);
         $this->verifierDisponibilite($dto->salleId, $dto->dateDebut, $dto->dateFin);
 
-        $reservation = Reservation::addReservation($dto);
-        $this->reservationRepository->enregistrerReservation($reservation);
-
-        return $reservation;
+        return $this->reservationRepository->enregistrerReservation([
+            'salle_id'    => $dto->salleId,
+            'responsable' => $dto->responsable,
+            'email'       => $dto->email,
+            'motif'       => $dto->motif,
+            'date_debut'  => $dto->dateDebut,
+            'date_fin'    => $dto->dateFin,
+            'statut'      => 'confirmée',
+        ]);
     }
 
     private function verifierSalleActive(int $salleId): void
@@ -67,7 +72,7 @@ class CreerReservationService
 
     private function verifierDisponibilite(int $salleId, \DateTimeImmutable $debut, \DateTimeImmutable $fin): void
     {
-        $conflit = $this->reservationRepository->hasOverlap($salleId, $debut, $fin);
+        $conflit = $this->reservationRepository->rechercherConflit($salleId, $debut, $fin);
 
         if ($conflit) {
             throw new SalleIndisponibleException("La salle est déjà réservée sur ce créneau.");

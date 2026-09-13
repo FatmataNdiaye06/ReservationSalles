@@ -57,8 +57,8 @@ if (Reservation::count() === 0) {
     $seedReservations = [
         [
             'salle_id' => Salle::where('nom', 'Salle B12')->value('id'),
-            'responsable' => 'Awa Ndiaye',
-            'email' => 'awa.ndiaye@universite.sn',
+            'responsable' => 'Fatmata Ndiaye',
+            'email' => 'fatmata.ndiaye@universite.sn',
             'motif' => "Cours d'architecture logicielle",
             'date_debut' => (new \DateTimeImmutable('+1 day'))->setTime(10, 0),
             'date_fin' => (new \DateTimeImmutable('+1 day'))->setTime(12, 0),
@@ -66,8 +66,8 @@ if (Reservation::count() === 0) {
         ],
         [
             'salle_id' => Salle::where('nom', 'Amphithéâtre A')->value('id'),
-            'responsable' => 'Fatou Diop',
-            'email' => 'fatou.diop@universite.sn',
+            'responsable' => 'Fama Diop',
+            'email' => 'fama.diop@universite.sn',
             'motif' => 'Soutenance de projet',
             'date_debut' => (new \DateTimeImmutable('+2 day'))->setTime(14, 0),
             'date_fin' => (new \DateTimeImmutable('+2 day'))->setTime(16, 0),
@@ -75,8 +75,8 @@ if (Reservation::count() === 0) {
         ],
         [
             'salle_id' => Salle::where('nom', 'Laboratoire Chimie')->value('id'),
-            'responsable' => 'Moussa Fall',
-            'email' => 'moussa.fall@universite.sn',
+            'responsable' => 'Fallou Diop',
+            'email' => 'fallou.diop@universite.sn',
             'motif' => 'Travaux pratiques',
             'date_debut' => (new \DateTimeImmutable('+3 day'))->setTime(9, 0),
             'date_fin' => (new \DateTimeImmutable('+3 day'))->setTime(11, 0),
@@ -84,8 +84,8 @@ if (Reservation::count() === 0) {
         ],
         [
             'salle_id' => Salle::where('nom', 'Salle Informatique 1')->value('id'),
-            'responsable' => 'Ousmane Ba',
-            'email' => 'ousmane.ba@universite.sn',
+            'responsable' => 'Ousmane Samba',
+            'email' => 'ousmane.samba@universite.sn',
             'motif' => 'Atelier développement web',
             'date_debut' => (new \DateTimeImmutable('+4 day'))->setTime(13, 0),
             'date_fin' => (new \DateTimeImmutable('+4 day'))->setTime(15, 0),
@@ -93,8 +93,8 @@ if (Reservation::count() === 0) {
         ],
         [
             'salle_id' => Salle::where('nom', 'Salle de réunion')->value('id'),
-            'responsable' => 'Aminata Sarr',
-            'email' => 'aminata.sarr@universite.sn',
+            'responsable' => 'Aminata Ndiaye',
+            'email' => 'aminata.ndiaye@universite.sn',
             'motif' => 'Réunion de coordination',
             'date_debut' => (new \DateTimeImmutable('+5 day'))->setTime(11, 0),
             'date_fin' => (new \DateTimeImmutable('+5 day'))->setTime(12, 0),

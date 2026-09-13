@@ -43,7 +43,7 @@ class Application {
 
                 [$controllerClass, $method] = $handler;
 
-                if ($controllerClass === \App\Controller\SalleController::class) {
+                               if ($controllerClass === \App\Controller\SalleController::class) {
                     $repository = new \App\Repository\EloquentSalleRepository();
                     $controller = new \App\Controller\SalleController(
                         new \App\Service\Salle\ListerSalleService($repository),

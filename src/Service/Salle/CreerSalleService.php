@@ -12,6 +12,12 @@ class CreerSalleService
 
     public function execute(CreerSalleDTO $dto): void
     {
-        $this->salleRepository->enregistrerSalle($dto);
+        $this->salleRepository->enregistrerSalle([
+            'nom' => $dto->nom,
+            'batiment' => $dto->batiment,
+            'capacite' => $dto->capacite,
+            'type' => $dto->type,
+            'active' => $dto->active,
+        ]);
     }
 }

@@ -71,7 +71,9 @@ class SalleController extends AbstractController
         if (!$validationResult->isValid()) {
             $this->renderView('salle/form.php', [
                 'errors' => $validationResult->errors(),
-                'old' => $formData
+                'old' => $formData,
+                'title' => 'Ajouter une salle',
+                'currentPage' => 'salles'
             ]);
             return;
         }
@@ -82,7 +84,9 @@ class SalleController extends AbstractController
         } catch (\Exception $e) {
             $this->renderView('salle/form.php', [
                 'errors' => ['global' => $e->getMessage()],
-                'old' => $formData
+                'old' => $formData,
+                'title' => 'Ajouter une salle',
+                'currentPage' => 'salles'
             ]);
             return;
         }

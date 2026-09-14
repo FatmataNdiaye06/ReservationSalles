@@ -5,6 +5,7 @@ use App\Service\Reservation\ListerReservationsService;
 use App\Service\Reservation\TrouverReservationService;
 use App\Service\Reservation\CreerReservationService;
 use App\Service\Reservation\AnnulerReservationService;
+use App\Service\Salle\ListerSalleService;
 use App\DTO\CreerReservationDTOBuilder;
 use App\Validation\ReservationValidator;
 use App\Validation\ValidationResult;
@@ -16,7 +17,8 @@ class ReservationController extends AbstractController
         private TrouverReservationService $trouverReservationService,
         private CreerReservationService $creerReservationService,
         private AnnulerReservationService $annulerReservationService,
-        private ReservationValidator $reservationValidator
+        private ReservationValidator $reservationValidator,
+        private ListerSalleService $listerSalleService
     ) {}
 
     public function index()
@@ -49,7 +51,10 @@ class ReservationController extends AbstractController
 
     public function create()
     {
+        $salles = $this->listerSalleService->execute();
+
         $this->renderView('reservation/form.php', [
+            'salles' => $salles,
             'errors' => [],
             'old' => [],
             'title' => 'Nouvelle réservation',
@@ -60,11 +65,14 @@ class ReservationController extends AbstractController
     public function store(array $formData)
     {
         $validationResult = $this->reservationValidator->validate($formData);
-        
+
         if (!$validationResult->isValid()) {
             $this->renderView('reservation/form.php', [
+                'salles' => $this->listerSalleService->execute(),
                 'errors' => $validationResult->errors(),
-                'old' => $formData
+                'old' => $formData,
+                'title' => 'Nouvelle réservation',
+                'currentPage' => 'reservations'
             ]);
             return;
         }
@@ -74,8 +82,11 @@ class ReservationController extends AbstractController
             $this->creerReservationService->execute($dto);
         } catch (\Exception $e) {
             $this->renderView('reservation/form.php', [
+                'salles' => $this->listerSalleService->execute(),
                 'errors' => ['global' => $e->getMessage()],
-                'old' => $formData
+                'old' => $formData,
+                'title' => 'Nouvelle réservation',
+                'currentPage' => 'reservations'
             ]);
             return;
         }

@@ -6,42 +6,28 @@ use Respect\Validation\Exceptions\NestedValidationException;
 
 class ReservationValidator implements ValidatorInterface {
     public function validate(array $data): ValidationResult {
+        $normalized = $data;
+
+        if (isset($normalized['salle_id']) && is_string($normalized['salle_id']) && is_numeric($normalized['salle_id'])) {
+            $normalized['salle_id'] = (int) $normalized['salle_id'];
+        }
+
         $errors = [];
+        $rules = [
+            'salle_id' => v::intType()->positive(),
+            'responsable' => v::stringType()->length(2, 120),
+            'email' => v::email(),
+            'motif' => v::stringType()->length(5, 255),
+            'date_debut' => v::dateTime(),
+            'date_fin' => v::dateTime(),
+        ];
 
-        try {
-            v::key('salle_id', v::intType()->positive())->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['salle_id'] = $e->getMessages();
-        }
-
-        try {
-            v::key('responsable', v::stringType()->length(2, 120))->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['responsable'] = $e->getMessages();
-        }
-
-        try {
-            v::key('email', v::email())->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['email'] = $e->getMessages();
-        }
-
-        try {
-            v::key('motif', v::stringType()->length(5, 255))->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['motif'] = $e->getMessages();
-        }
-
-        try {
-            v::key('date_debut', v::date())->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['date_debut'] = $e->getMessages();
-        }
-
-        try {
-            v::key('date_fin', v::date())->assert($data);
-        } catch (NestedValidationException $e) {
-            $errors['date_fin'] = $e->getMessages();
+        foreach ($rules as $field => $rule) {
+            try {
+                v::key($field, $rule)->assert($normalized);
+            } catch (NestedValidationException $e) {
+                $errors[$field] = $e->getMessages();
+            }
         }
 
         return new ValidationResult(empty($errors), $errors, $data);

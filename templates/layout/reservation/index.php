@@ -16,8 +16,9 @@
         <select id="salle">
             <option>Toutes les salles</option>
             <?php foreach ($reservations ?? [] as $reservation): ?>
+                <?php $salleId = (int) ($reservation->salle_id ?? ($reservation->salle ? $reservation->salle->id : 0)); ?>
                 <?php $salleName = $reservation->salle ? $reservation->salle->nom : 'Salle inconnue'; ?>
-                <option><?= $salleName ?></option>
+                <option value="<?= $salleId ?>"><?= $salleId > 0 ? 'Salle #' . $salleId . ' - ' . $salleName : $salleName ?></option>
             <?php endforeach; ?>
         </select>
     </div>
@@ -58,13 +59,19 @@
 
             <tbody>
                 <?php foreach ($reservations ?? [] as $reservation): ?>
+                    <?php $salleId = (int) ($reservation->salle_id ?? ($reservation->salle ? $reservation->salle->id : 0)); ?>
                     <?php $salleName = $reservation->salle ? $reservation->salle->nom : 'Salle inconnue'; ?>
                     <tr>
                         <td>
                             <strong><?= $reservation->responsable ?></strong>
                             <small><?= $reservation->email ?></small>
                         </td>
-                        <td><?= $salleName ?></td>
+                        <td>
+                            <?= $salleId > 0 ? 'Salle #' . $salleId : 'Salle inconnue' ?>
+                            <?php if ($salleName !== 'Salle inconnue'): ?>
+                                <small>(<?= $salleName ?>)</small>
+                            <?php endif; ?>
+                        </td>
                         <td><?= $reservation->motif ?></td>
                         <td><?= $reservation->date_debut ? $reservation->date_debut->format('d/m/Y') : '' ?></td>
                         <td><?= $reservation->date_debut ? $reservation->date_debut->format('H:i') . ' - ' . $reservation->date_fin->format('H:i') : '' ?></td>

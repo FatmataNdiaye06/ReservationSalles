@@ -17,7 +17,7 @@ class EloquentReservationRepository implements ReservationRepositoryInterface
         return Reservation::find($id);
     }
 
-    public function hasOverlap(int $salleId, DateTimeInterface $debut, DateTimeInterface $fin): bool
+    public function estEnConflit(int $salleId, DateTimeInterface $debut, DateTimeInterface $fin): bool
     {
         return Reservation::where('salle_id', $salleId)
             ->where('statut', 'confirmée')

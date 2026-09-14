@@ -1,9 +1,14 @@
 <?php
+declare(strict_types=1);
 
-require_once dirname(__DIR__)."/vendor/autoload.php";
-require_once dirname(__DIR__)."/config/database.php";
-initDatabase();
 use App\Application;
+use DI\ContainerBuilder;
 
-$application = new Application();
-$application->runApp();
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+$builder = new ContainerBuilder();
+$builder->addDefinitions(dirname(__DIR__) . '/config/container.php');
+
+$container = $builder->build();
+$application = $container->get(Application::class);
+$application->run();

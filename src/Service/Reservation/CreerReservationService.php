@@ -72,7 +72,7 @@ class CreerReservationService
 
     private function verifierDisponibilite(int $salleId, \DateTimeImmutable $debut, \DateTimeImmutable $fin): void
     {
-        $conflit = $this->reservationRepository->rechercherConflit($salleId, $debut, $fin);
+        $conflit = $this->reservationRepository->estEnConflit($salleId, $debut, $fin);
 
         if ($conflit) {
             throw new SalleIndisponibleException("La salle est déjà réservée sur ce créneau.");

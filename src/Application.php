@@ -1,21 +1,18 @@
 <?php
 namespace App;
 
-require_once __DIR__ . '/Validation/SalleValidator.php';
-require_once __DIR__ . '/Repository/EloquentSalleRepository.php';
-require_once __DIR__ . '/Service/Salle/ListerSalleService.php';
-require_once __DIR__ . '/Service/Salle/CreerSalleService.php';
-require_once __DIR__ . '/Service/Salle/ModifierSalleService.php';
-require_once __DIR__ . '/Service/Salle/TrouverSalleService.php';
-
+use App\Controller\ReservationController;
+use App\Controller\SalleController;
 use FastRoute\Dispatcher;
 
 class Application {
+    public function __construct(
+        private Dispatcher $dispatcher,
+        private SalleController $salleController,
+        private ReservationController $reservationController
+    ) {}
 
-    public function runApp() {
-        $routeDefinitionCallback = require dirname(__DIR__) . '/routes/web.php';
-        $dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
-
+    public function run(): void {
         $httpMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $uri = $_SERVER['REQUEST_URI'] ?? '/';
 
@@ -24,7 +21,7 @@ class Application {
         }
         $uri = rawurldecode($uri);
 
-        $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+        $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
@@ -38,41 +35,31 @@ class Application {
                 break;
 
             case Dispatcher::FOUND:
-                $handler = $routeInfo[1]; 
-                $vars = $routeInfo[2];    
+                $handler = $routeInfo[1];
+                $vars = $routeInfo[2];
 
                 [$controllerClass, $method] = $handler;
 
-                               if ($controllerClass === \App\Controller\SalleController::class) {
-                    $repository = new \App\Repository\EloquentSalleRepository();
-                    $controller = new \App\Controller\SalleController(
-                        new \App\Service\Salle\ListerSalleService($repository),
-                        new \App\Service\Salle\CreerSalleService($repository),
-                        new \App\Service\Salle\ModifierSalleService($repository),
-                        new \App\Service\Salle\TrouverSalleService($repository),
-                        new \App\Validation\SalleValidator()
-                    );
-                } elseif ($controllerClass === \App\Controller\ReservationController::class) {
-                    $salleRepository = new \App\Repository\EloquentSalleRepository();
-                    $reservationRepository = new \App\Repository\EloquentReservationRepository();
-                    $controller = new \App\Controller\ReservationController(
-                        new \App\Service\Reservation\ListerReservationsService($reservationRepository),
-                        new \App\Service\Reservation\TrouverReservationService($reservationRepository),
-                        new \App\Service\Reservation\CreerReservationService($salleRepository, $reservationRepository),
-                        new \App\Service\Reservation\AnnulerReservationService($reservationRepository),
-                        new \App\Validation\ReservationValidator()
-                    );
-                } else {
-                    $controller = new $controllerClass();
-                }
+                $controller = match ($controllerClass) {
+                    SalleController::class => $this->salleController,
+                    ReservationController::class => $this->reservationController,
+                    default => new $controllerClass(),
+                };
 
                 $formData = $_POST ?? [];
-                if ($method === 'store' || $method === 'update') {
+                if ($method === 'store') {
+                    $controller->$method($formData);
+                } elseif ($method === 'update') {
                     $controller->$method($vars, $formData);
                 } else {
                     $controller->$method($vars);
                 }
                 break;
         }
+    }
+
+    public function runApp(): void
+    {
+        $this->run();
     }
 }
